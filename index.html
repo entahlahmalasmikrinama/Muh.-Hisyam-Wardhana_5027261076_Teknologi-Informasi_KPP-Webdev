@@ -1,0 +1,3686 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechJobs Portal - Jembatan Pelamar & Perusahaan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #43e97b;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --navbar-bg: rgba(255,255,255,0.95);
+            --footer-bg: #212529;
+        }
+
+        
+        .dark-mode {
+            --primary: #8a9eff;
+            --secondary: #a68bce;
+            --accent: #5ef9a4;
+            --dark: #121212;
+            --light: #2d2d2d;
+            --bg-color: #121212;
+            --text-color: #f8f9fa;
+            --card-bg: #1e1e1e;
+            --navbar-bg: rgba(30,30,30,0.95);
+            --footer-bg: #0d0d0d;
+        }
+        
+        body { 
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+
+        /* ========== NAVBAR ========== */
+        .navbar-custom {
+            background: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+
+        .navbar-custom.scrolled {
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+        }
+        
+
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+
+        .nav-link {
+            font-weight: 500;
+            margin: 0 10px;
+            color: var(--text-color) !important;
+            position: relative;
+            padding: 8px 0 !important;
+        }
+        
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        
+
+        .hero-section::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            background: 
+
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+
+        }
+
+        
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+        
+
+        .hero-title {
+
+            font-size: 3.5rem;
+
+            font-weight: 800;
+
+            line-height: 1.2;
+
+            margin-bottom: 1.5rem;
+
+            background: linear-gradient(45deg, #fff 30%, #ffd700 100%);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            background-clip: text;
+
+        }
+
+        
+
+        .hero-subtitle {
+
+            font-size: 1.3rem;
+
+            font-weight: 300;
+
+            margin-bottom: 2rem;
+
+            opacity: 0.9;
+
+            max-width: 600px;
+
+        }
+
+        
+
+        /* ========== CARDS ========== */
+
+        .dashboard-card {
+
+            background: var(--card-bg);
+
+            border-radius: 20px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+
+            border: none;
+
+            margin-bottom: 24px;
+
+            transition: all 0.3s ease;
+
+            color: var(--text-color);
+
+        }
+
+        
+
+        .dashboard-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+
+        }
+
+        
+
+        .position-card {
+
+            background: var(--card-bg);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+
+            transition: all 0.4s ease;
+
+            border: none;
+
+            height: 100%;
+
+            position: relative;
+
+            color: var(--text-color);
+
+        }
+
+        
+
+        .position-card:hover {
+
+            transform: translateY(-15px);
+
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+
+        }
+
+        
+
+        .position-card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            height: 5px;
+
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+        }
+
+        
+
+        /* ========== BUTTONS ========== */
+
+        .btn-primary-custom {
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            color: white;
+
+            border: none;
+
+            padding: 15px 35px;
+
+            border-radius: 50px;
+
+            font-weight: 600;
+
+            transition: all 0.3s ease;
+
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+
+        }
+
+        
+
+        .btn-primary-custom:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+
+            color: white;
+
+        }
+
+        
+
+        .btn-outline-primary-custom {
+
+            border: 2px solid var(--primary);
+
+            color: var(--primary);
+
+            background: transparent;
+
+            padding: 13px 33px;
+
+            border-radius: 50px;
+
+            font-weight: 600;
+
+            transition: all 0.3s ease;
+
+        }
+
+        
+
+        .btn-outline-primary-custom:hover {
+
+            background: var(--primary);
+
+            color: white;
+
+        }
+
+        
+
+        .btn-success-custom {
+
+            background: var(--success);
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 25px;
+
+            border-radius: 5px;
+
+        }
+
+        
+
+        /* ========== STATUS BADGES ========== */
+
+        .status-badge {
+
+            padding: 5px 15px;
+
+            border-radius: 20px;
+
+            font-size: 0.8rem;
+
+            font-weight: 600;
+
+            display: inline-block;
+
+        }
+
+        
+
+        .status-pending {
+
+            background-color: var(--warning);
+
+            color: #000;
+
+        }
+
+        
+
+        .status-recommended {
+
+            background-color: var(--info);
+
+            color: white;
+
+        }
+
+        
+
+        .status-accepted {
+
+            background-color: var(--success);
+
+            color: white;
+
+        }
+
+        
+
+        .status-rejected {
+
+            background-color: var(--danger);
+
+            color: white;
+
+        }
+
+        
+
+        /* ========== LOGIN STYLES ========== */
+
+        .login-container {
+
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 40px 0;
+
+        }
+
+        
+
+        /* ========== UPLOAD STYLES ========== */
+
+        .upload-area {
+
+            border: 2px dashed #dee2e6;
+
+            border-radius: 10px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            background: var(--light);
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+        
+
+        .upload-area:hover {
+
+            border-color: var(--primary);
+
+            background: rgba(102, 126, 234, 0.05);
+
+        }
+
+        
+
+        .upload-area.dragover {
+
+            border-color: var(--primary);
+
+            background: rgba(102, 126, 234, 0.1);
+
+        }
+
+        
+
+        .upload-icon {
+
+            font-size: 3rem;
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+
+        }
+
+        
+
+        .file-preview {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+        }
+
+        
+
+        .file-preview img {
+
+            max-width: 200px;
+
+            max-height: 200px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+            border: 3px solid var(--card-bg);
+
+        }
+
+        
+
+        .file-info {
+
+            margin-top: 10px;
+
+            padding: 10px;
+
+            background: var(--light);
+
+            border-radius: 5px;
+
+            display: inline-block;
+
+        }
+
+        
+
+        .remove-file {
+
+            color: #dc3545;
+
+            cursor: pointer;
+
+            margin-left: 10px;
+
+        }
+
+        
+
+        .remove-file:hover {
+
+            color: #c82333;
+
+        }
+
+                /* Efek saat posisi dipilih */
+        .job-position-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent; /* Border transparan default */
+        }
+
+        .job-position-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* KELAS PENTING: Ini yang membuat kartu menyala saat diklik */
+        .job-position-card.selected {
+            border-color: var(--primary) !important;
+            background-color: rgba(102, 126, 234, 0.1) !important; /* Warna biru muda */
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* ========== CHART STYLES ========== */
+
+        .chart-card {
+
+            background: var(--card-bg);
+
+            border-radius: 20px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+
+            border: none;
+
+            margin-bottom: 24px;
+
+        }
+
+        
+
+        .chart-container {
+
+            position: relative;
+
+            height: 300px;
+
+            width: 100%;
+
+        }
+
+        
+
+        .chart-btn {
+
+            transition: all 0.3s ease;
+
+        }
+
+        
+
+        .chart-btn.active {
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            color: white;
+
+        }
+
+        
+
+        /* ========== TABLE STYLES ========== */
+
+        .table {
+
+            color: var(--text-color);
+
+        }
+
+        
+
+        .table-hover tbody tr:hover {
+
+            background-color: rgba(var(--primary-rgb), 0.1);
+
+        }
+
+        
+
+        /* ========== FORM STYLES ========== */
+
+        .form-control, .form-select {
+
+            background-color: var(--card-bg);
+
+            color: var(--text-color);
+
+            border: 1px solid #dee2e6;
+
+        }
+
+        
+
+        .form-control:focus, .form-select:focus {
+
+            background-color: var(--card-bg);
+
+            color: var(--text-color);
+
+            border-color: var(--primary);
+
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+
+        }
+
+        
+
+        /* ========== MODAL STYLES ========== */
+
+        .modal-content {
+
+            background-color: var(--card-bg);
+
+            color: var(--text-color);
+
+        }
+
+        
+
+        /* ========== ANIMATIONS ========== */
+
+        @keyframes fadeInUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(30px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+        
+
+        .animate-fadeInUp {
+
+            animation: fadeInUp 0.8s ease forwards;
+
+        }
+
+        
+
+        .animate-delay-1 { animation-delay: 0.1s; }
+
+        .animate-delay-2 { animation-delay: 0.2s; }
+
+        .animate-delay-3 { animation-delay: 0.3s; }
+
+        .animate-delay-4 { animation-delay: 0.4s; }
+
+        
+
+        /* ========== DARK MODE TOGGLE ========== */
+
+        .theme-toggle {
+
+            background: transparent;
+
+            border: none;
+
+            color: var(--text-color);
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            margin-left: 10px;
+
+            transition: transform 0.3s ease;
+
+        }
+
+        
+
+        .theme-toggle:hover {
+
+            transform: rotate(30deg);
+
+        }
+
+        
+
+        /* ========== RESPONSIVE ========== */
+
+        @media (max-width: 768px) {
+
+            .hero-title {
+
+                font-size: 2.5rem;
+
+            }
+
+            
+
+            .chart-container {
+
+                height: 250px;
+
+            }
+
+            
+
+            .file-preview img {
+
+                max-width: 150px;
+
+                max-height: 150px;
+
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+
+    
+// ============================================
+// SECTION 1: DATABASE FUNCTIONS
+// ============================================
+var DB = {
+    // Users data
+    getUsers: function() { 
+        return JSON.parse(localStorage.getItem('users') || '[]'); 
+    },
+    saveUsers: function(u) { 
+        localStorage.setItem('users', JSON.stringify(u)); 
+    },
+    
+    // Companies data
+    getCompanies: function() { 
+        return JSON.parse(localStorage.getItem('companies') || '[]');   
+    },
+    saveCompanies: function(c) { 
+        localStorage.setItem('companies', JSON.stringify(c)); 
+    },
+    
+    // Recommendations data
+    getRecommendations: function() { 
+        return JSON.parse(localStorage.getItem('recommendations') || '[]'); 
+    },
+    saveRecommendations: function(r) { 
+        localStorage.setItem('recommendations', JSON.stringify(r)); 
+    },
+    
+    // Applications data (with CV and Photo)
+    getApplications: function() { 
+        return JSON.parse(localStorage.getItem('applications') || '[]'); 
+    },
+    saveApplications: function(a) { 
+        localStorage.setItem('applications', JSON.stringify(a)); 
+    },
+    
+    // Jobs data
+    getJobs: function() { 
+        return JSON.parse(localStorage.getItem('companyJobs') || '[]'); 
+    },
+    saveJobs: function(j) { 
+        localStorage.setItem('companyJobs', JSON.stringify(j)); 
+    },
+    
+    // Session management
+    getUser: function() { 
+        return JSON.parse(sessionStorage.getItem('currentUser') || 'null'); 
+    },
+    setUser: function(u) { 
+        sessionStorage.setItem('currentUser', JSON.stringify(u)); 
+    },
+    clear: function() { 
+        sessionStorage.removeItem('currentUser'); 
+    },
+    
+    // Theme preference
+    getTheme: function() {
+        return localStorage.getItem('theme') || 'light';
+    },
+    saveTheme: function(theme) {
+        localStorage.setItem('theme', theme);
+    }
+};
+
+// ============================================
+// SECTION 2: APPLICATION STATE
+// ============================================
+var state = { 
+    user: DB.getUser(),
+    view: 'landing',
+    editId: null,
+    cvData: null,
+    fotoData: null,
+    selectedPosition: null,
+    viewingPosition: null,
+    currentChart: 'bar',
+    resetEmail: null,
+    editingJob: null,
+    theme: DB.getTheme()
+};
+
+// Apply theme on load
+if (state.theme === 'dark') {
+    document.body.classList.add('dark-mode');
+}
+
+// ============================================
+// SECTION 3: RENDER FUNCTION
+// ============================================
+function render() {
+    var app = document.getElementById('app');
+    
+    if (state.view === 'landing') {
+        app.innerHTML = landingPage();
+    } else if (state.view === 'forgot') {
+        app.innerHTML = showForgotPassword();
+    } else if (state.view === 'resetPassword') {
+        app.innerHTML = showResetPasswordForm(state.resetEmail);
+    } else if (state.view === 'positionDetail') {
+        app.innerHTML = positionDetailPage();
+    } else if (!state.user) {
+        app.innerHTML = loginPage();
+    } else if (state.user.role === 'admin') {
+        app.innerHTML = adminPage();
+    } else if (state.user.role === 'company') {
+        app.innerHTML = companyPage();
+    } else {
+        app.innerHTML = userPage();
+    }
+    
+    if (state.view === 'landing') {
+        setTimeout(function() {
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+            initAnimations();
+        }, 100);
+    } else if (state.view === 'admin') {
+        setTimeout(initCharts, 100);
+    }
+}
+
+// ============================================
+// SECTION 4: THEME TOGGLE FUNCTION
+// ============================================
+function toggleTheme() {
+    if (state.theme === 'light') {
+        state.theme = 'dark';
+        document.body.classList.add('dark-mode');
+    } else {
+        state.theme = 'light';
+        document.body.classList.remove('dark-mode');
+    }
+    
+    // Simpan ke database/local storage
+    DB.saveTheme(state.theme);
+    
+    // Update ikon tombol tanpa me-render ulang seluruh halaman (lebih smooth)
+    updateThemeIcon();
+}
+
+// Tambahkan fungsi helper ini
+function updateThemeIcon() {
+    const btn = document.querySelector('.theme-toggle i');
+    if (btn) {
+        if (state.theme === 'dark') {
+            btn.className = 'bi bi-sun-fill'; // Ikon Matahari saat mode gelap
+        } else {
+            btn.className = 'bi bi-moon-fill'; // Ikon Bulan saat mode terang
+        }
+    }
+}
+
+// ============================================
+// SECTION 5: LANDING PAGE
+// ============================================
+function landingPage() {
+    var positions = getPositions();
+    var companyJobs = DB.getJobs();
+    var allPositions = [...positions, ...companyJobs];
+    
+    var positionCards = allPositions.map(pos => {
+        var isCompanyJob = pos.companyName ? true : false;
+        var badge = isCompanyJob ? 
+            `<span class="badge bg-success">Lowongan Perusahaan</span>` : 
+            `<span class="badge bg-primary">${pos.type}</span>`;
+        
+        var companyInfo = isCompanyJob ? 
+            `<div class="mb-2"><i class="bi bi-building"></i> ${pos.companyName}</div>` : '';
+        
+        return `
+        <div class="col-lg-4 col-md-6 mb-4 animate-fadeInUp" style="animation-delay: ${pos.id * 0.1}s">
+            <div class="card position-card h-100" onclick="showPositionDetail(${pos.id}, ${isCompanyJob})">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <i class="bi ${pos.icon} position-icon" style="font-size: 3rem; color: var(--primary);"></i>
+                        ${badge}
+                    </div>
+                    ${companyInfo}
+                    <h4 class="fw-bold mb-3">${pos.name}</h4>
+                    <p class="text-muted mb-4">${pos.desc}</p>
+                    <div class="text-primary fw-bold mb-3">${pos.salary}</div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span><i class="bi bi-briefcase me-2"></i>${pos.experience}</span>
+                        <span><i class="bi bi-geo-alt me-2"></i>${pos.location}</span>
+                    </div>
+                    <button class="btn btn-primary-custom w-100">
+                        <i class="bi bi-arrow-right me-2"></i>Pelajari Selengkapnya
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+    
+    return `
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="state.view='landing';render()">
+                <i class="bi bi-briefcase-fill"></i> TechJobs Portal
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#positions">Lowongan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#process">Proses</a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                   <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="bi ${state.theme === 'light' ? 'bi-moon-fill' : 'bi-sun-fill'}"></i>
+                    </button>
+                    <button class="btn btn-outline-primary-custom me-2" onclick="state.view='login';render()">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                    </button>
+                    <button class="btn btn-primary-custom" onclick="showRegisterOptions()">
+                        <i class="bi bi-person-plus me-2"></i>Daftar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content animate-fadeInUp">
+                    <div class="d-flex align-items-center bg-white bg-opacity-10 p-3 rounded-pill mb-4 animate-delay-1" style="backdrop-filter: blur(10px); max-width: fit-content;">
+                        <i class="bi bi-star-fill text-warning me-2"></i>
+                        <span>#1 Platform Rekrutmen IT di Indonesia</span>
+                    </div>
+                    <h1 class="hero-title animate-delay-2">
+                        Jembatan Antara<br>
+                        <span style="background: linear-gradient(45deg, #ffd700, #ff8c00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Talenta & Perusahaan</span>
+                    </h1>
+                    <p class="hero-subtitle animate-delay-3">
+                        Admin kami akan membantu merekomendasikan Anda ke perusahaan yang tepat. 
+                        Bergabunglah dengan ribuan profesional IT yang telah mengembangkan karir mereka.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 animate-delay-4">
+                        <button class="btn btn-primary-custom" onclick="state.view='login';render()">
+                            <i class="bi bi-rocket-takeoff me-2"></i>Mulai Sekarang
+                        </button>
+                        <button class="btn btn-outline-light" onclick="document.getElementById('positions').scrollIntoView({behavior:'smooth'})">
+                            <i class="bi bi-search me-2"></i>Lihat Lowongan
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 animate-fadeInUp">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Tech Team" class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Positions Section -->
+    <section class="py-5" id="positions">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="font-size: 2.8rem; color: var(--dark); position: relative; display: inline-block;">
+                    Posisi yang Tersedia
+                    <div style="position: absolute; bottom: -10px; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 2px;"></div>
+                </h2>
+                <p class="text-muted fs-5 mt-4">
+                    Temukan pekerjaan IT yang sesuai dengan keahlian dan passion Anda.
+                </p>
+            </div>
+            <div class="row">
+                ${positionCards}
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5 bg-light" id="about">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="font-size: 2.8rem; color: var(--dark); position: relative; display: inline-block;">
+                    Tentang Kami
+                    <div style="position: absolute; bottom: -10px; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 2px;"></div>
+                </h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 text-center">
+                    <div class="p-4 dashboard-card h-100">
+                        <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="bi bi-person-fill text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Untuk Pelamar</h4>
+                        <p class="text-muted">Dapatkan rekomendasi ke perusahaan terbaik sesuai keahlian Anda</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-4 dashboard-card h-100">
+                        <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="bi bi-building text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Untuk Perusahaan</h4>
+                        <p class="text-muted">Temukan talenta terbaik yang sudah disaring oleh tim kami</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-4 dashboard-card h-100">
+                        <div class="rounded-circle bg-info d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="bi bi-people-fill text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Peran Admin</h4>
+                        <p class="text-muted">Sebagai jembatan yang merekomendasikan talenta ke perusahaan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5" id="process">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="font-size: 2.8rem; color: var(--dark); position: relative; display: inline-block;">
+                    Cara Kerja Kami
+                    <div style="position: absolute; bottom: -10px; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 2px;"></div>
+                </h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3 text-center">
+                    <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <span class="fw-bold text-white">1</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Daftar</h5>
+                    <p class="text-muted">Pelamar atau perusahaan membuat akun</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <span class="fw-bold text-white">2</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Rekomendasi</h5>
+                    <p class="text-muted">Admin merekomendasikan pelamar ke perusahaan</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <span class="fw-bold text-white">3</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Review</h5>
+                    <p class="text-muted">Perusahaan mengevaluasi pelamar yang direkomendasikan</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <span class="fw-bold text-white">4</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Keputusan</h5>
+                    <p class="text-muted">Perusahaan memutuskan menerima atau menolak pelamar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5" style="background-color: var(--footer-bg); color: white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none mb-3" onclick="state.view='landing';render()">
+                        <i class="bi bi-briefcase-fill me-2" style="font-size: 2rem;"></i>
+                        <span class="fw-bold fs-4">TechJobs Portal</span>
+                    </a>
+                    <p class="text-white-50">
+                        Platform rekrutmen IT terdepan untuk menghubungkan talenta terbaik dengan perusahaan teknologi.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="bi bi-linkedin" style="font-size: 1.2rem;"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter" style="font-size: 1.2rem;"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram" style="font-size: 1.2rem;"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-facebook" style="font-size: 1.2rem;"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-4">Kontak Kami</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>info@techjobs.id</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>(021) 1234-5678</li>
+                        <li><i class="bi bi-geo-alt me-2"></i>Jl. Sudirman No. 1, Jakarta</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-4">Newsletter</h5>
+                    <p class="text-white-50 mb-3">Dapatkan info lowongan terbaru</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Email Anda" style="background: var(--card-bg); color: var(--text-color);">
+                        <button class="btn btn-primary" type="button">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="text-white-50 my-4">
+            <div class="text-center text-white-50">
+                <p class="mb-0">© 2024 TechJobs Portal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>`;
+}
+
+// ============================================
+// SECTION 6: AUTHENTICATION FUNCTIONS
+// ============================================
+function showRegisterOptions() {
+    document.getElementById('app').innerHTML = `
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card dashboard-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-briefcase-fill text-primary" style="font-size:4rem"></i>
+                                <h2 class="mt-3 fw-bold">Pilih Tipe Akun</h2>
+                                <p class="text-muted">Daftar sebagai:</p>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card text-center p-3 border-primary" onclick="showUserRegister()" style="cursor:pointer; border-radius: 15px;">
+                                        <i class="bi bi-person-fill text-primary" style="font-size:2rem"></i>
+                                        <h5 class="mt-2">Pelamar Kerja</h5>
+                                        <small class="text-muted">Mencari pekerjaan</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card text-center p-3 border-success" onclick="showCompanyRegister()" style="cursor:pointer; border-radius: 15px;">
+                                        <i class="bi bi-building-fill text-success" style="font-size:2rem"></i>
+                                        <h5 class="mt-2">Perusahaan</h5>
+                                        <small class="text-muted">Mencari talenta</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-secondary" onclick="state.view='landing';render()">
+                                    <i class="bi bi-arrow-left me-2"></i>Kembali ke Beranda
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="state.view='login';render()">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Sudah Punya Akun? Login
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function showUserRegister() {
+    document.getElementById('app').innerHTML = `
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card dashboard-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-person-fill text-primary" style="font-size:4rem"></i>
+                                <h2 class="mt-3 fw-bold">Daftar Pelamar</h2>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="rNama">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="rEmail">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="rPass">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Telepon</label>
+                                <input type="tel" class="form-control" id="rTel">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Keahlian (pisahkan dengan koma)</label>
+                                <input type="text" class="form-control" id="rSkills" placeholder="JavaScript, React, Python">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Pengalaman (tahun)</label>
+                                <input type="number" class="form-control" id="rExperience" min="0">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary mb-2" onclick="doUserRegister()">
+                                    <i class="bi bi-person-plus me-2"></i>Daftar
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="showRegisterOptions()">
+                                    <i class="bi bi-arrow-left me-2"></i>Kembali
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function showCompanyRegister() {
+    document.getElementById('app').innerHTML = `
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card dashboard-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-building-fill text-success" style="font-size:4rem"></i>
+                                <h2 class="mt-3 fw-bold">Daftar Perusahaan</h2>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nama Perusahaan</label>
+                                <input type="text" class="form-control" id="cName">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email Perusahaan</label>
+                                <input type="email" class="form-control" id="cEmail">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="cPass">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Telepon</label>
+                                <input type="tel" class="form-control" id="cTel">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Industri</label>
+                                <input type="text" class="form-control" id="cIndustry" placeholder="Teknologi, Fintech, E-commerce">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success mb-2" onclick="doCompanyRegister()">
+                                    <i class="bi bi-building me-2"></i>Daftar Perusahaan
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="showRegisterOptions()">
+                                    <i class="bi bi-arrow-left me-2"></i>Kembali
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function loginPage() {
+    return `
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card dashboard-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-briefcase-fill text-primary" style="font-size:4rem"></i>
+                                <h2 class="mt-3 fw-bold">TechJobs Portal</h2>
+                                <p class="text-muted">Login ke akun Anda</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="lEmail" placeholder="email@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="lPass" placeholder="••••••••">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary mb-3" onclick="doLogin()">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                </button>
+                                <button class="btn btn-outline-secondary mb-3" onclick="state.view='landing';render()">
+                                    <i class="bi bi-house me-2"></i>Kembali ke Beranda
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small class="text-muted">
+                                    Belum punya akun? 
+                                    <a href="#" onclick="showRegisterOptions()" class="text-decoration-none">Daftar</a>
+                                </small>
+                                <small>
+                                    <a href="#" onclick="state.view='forgot';render()" class="text-decoration-none text-primary">
+                                        <i class="bi bi-question-circle me-1"></i>Lupa Password?
+                                    </a>
+                                </small>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function doLogin() {
+    var email = document.getElementById('lEmail').value;
+    var pass = document.getElementById('lPass').value;
+    
+    if (!email || !pass) {
+        alert('Isi email dan password!');
+        return;
+    }
+
+    // Menggunakan Fetch API ke PHP
+    fetch('login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: pass })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            state.user = data.user;
+            DB.setUser(state.user); // Simpan ke session storage agar tidak hilang saat refresh
+            render();
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan koneksi server');
+    });
+}
+
+function doUserRegister() {
+    var data = {
+        nama: document.getElementById('rNama').value,
+        email: document.getElementById('rEmail').value,
+        password: document.getElementById('rPass').value,
+        telepon: document.getElementById('rTel').value,
+        skills: document.getElementById('rSkills').value,
+        experience: document.getElementById('rExperience').value
+    };
+    
+    if (!data.nama || !data.email || !data.password) {
+        alert('Isi semua field yang wajib!');
+        return;
+    }
+
+    fetch('register_user.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            alert('Registrasi berhasil! Silakan login.');
+            state.view = 'login';
+            render();
+        } else {
+            alert(result.message);
+        }
+    })
+    .catch(error => alert('Error koneksi server'));
+}
+
+function doCompanyRegister() {
+    var data = {
+        name: document.getElementById('cName').value,
+        email: document.getElementById('cEmail').value,
+        password: document.getElementById('cPass').value,
+        telepon: document.getElementById('cTel').value,
+        industry: document.getElementById('cIndustry').value
+    };
+    
+    if (!data.name || !data.email || !data.password) {
+        alert('Isi semua field yang wajib!');
+        return;
+    }
+
+    fetch('register_company.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            alert('Registrasi perusahaan berhasil! Silakan login.');
+            state.view = 'login';
+            render();
+        } else {
+            alert(result.message);
+        }
+    })
+    .catch(error => alert('Error koneksi server'));
+}
+
+function doLogout() {
+    DB.clear();
+    state.user = null;
+    state.view = 'login';
+    render();
+}
+
+// ============================================
+// SECTION 7: FORGOT PASSWORD FUNCTIONS
+// ============================================
+function showForgotPassword() {
+    return `
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card dashboard-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-key-fill text-primary" style="font-size:4rem"></i>
+                                <h2 class="mt-3 fw-bold">Reset Password</h2>
+                                <p class="text-muted">Masukkan email Anda untuk menerima kode reset password</p>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Email Terdaftar</label>
+                                <input type="email" class="form-control" id="resetEmail" placeholder="email@example.com">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary mb-3" onclick="sendResetCode()">
+                                    <i class="bi bi-send me-2"></i>Kirim Kode Reset
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="state.view='login';render()">
+                                    <i class="bi bi-arrow-left me-2"></i>Kembali ke Login
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="state.view='landing';render()">
+                                    <i class="bi bi-house me-2"></i>Kembali ke Beranda
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function showResetPasswordForm(email) {
+    return `
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card dashboard-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-shield-lock text-primary" style="font-size:4rem"></i>
+                                <h2 class="mt-3 fw-bold">Buat Password Baru</h2>
+                                <p class="text-muted">Untuk: ${email}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Kode Reset (6 digit)</label>
+                                <input type="text" class="form-control" id="resetCode" placeholder="123456" maxlength="6">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password Baru</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="Minimal 6 karakter">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Konfirmasi Password Baru</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Ulangi password baru">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success mb-2" onclick="resetPassword('${email}')">
+                                    <i class="bi bi-check-circle me-2"></i>Reset Password
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="state.view='forgot';render()">
+                                    <i class="bi bi-arrow-left me-2"></i>Kembali
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function sendResetCode() {
+    var email = document.getElementById('resetEmail').value;
+    if (!email) {
+        alert('Harap masukkan email Anda!');
+        return;
+    }
+    
+    var users = DB.getUsers();
+    var companies = DB.getCompanies();
+    
+    // Check if email exists in users or companies
+    var user = users.find(u => u.email === email);
+    var company = companies.find(c => c.email === email);
+    
+    if (!user && !company) {
+        alert('Email tidak terdaftar dalam sistem!');
+        return;
+    }
+    
+    // Generate 6-digit reset code
+    var resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Save to session storage
+    sessionStorage.setItem('resetCode_' + email, resetCode);
+    sessionStorage.setItem('resetEmail', email);
+    sessionStorage.setItem('resetExpiry_' + email, Date.now() + (30 * 60 * 1000)); // 30 minutes
+    
+    alert(`Kode reset telah dikirim ke ${email}\n\nKode reset: ${resetCode}\n\n(catatan: ini hanya simulasi)`);
+    
+    state.resetEmail = email;
+    state.view = 'resetPassword';
+    render();
+}
+
+function resetPassword(email) {
+    var codeInput = document.getElementById('resetCode').value;
+    var newPass = document.getElementById('newPassword').value;
+    var confirmPass = document.getElementById('confirmPassword').value;
+    
+    if (!codeInput || !newPass || !confirmPass) {
+        alert('Harap isi semua field!');
+        return;
+    }
+    
+    if (newPass.length < 6) {
+        alert('Password minimal 6 karakter!');
+        return;
+    }
+    
+    if (newPass !== confirmPass) {
+        alert('Password baru dan konfirmasi password tidak sama!');
+        return;
+    }
+    
+    var storedCode = sessionStorage.getItem('resetCode_' + email);
+    var expiryTime = sessionStorage.getItem('resetExpiry_' + email);
+    
+    if (!storedCode) {
+        alert('Kode reset tidak valid!');
+        return;
+    }
+    
+    if (Date.now() > expiryTime) {
+        alert('Kode reset telah kedaluwarsa! (berlaku 30 menit)');
+        sessionStorage.removeItem('resetCode_' + email);
+        sessionStorage.removeItem('resetExpiry_' + email);
+        state.view = 'forgot';
+        render();
+        return;
+    }
+    
+    if (codeInput !== storedCode) {
+        alert('Kode reset tidak valid!');
+        return;
+    }
+    
+    // Update password in users
+    var users = DB.getUsers();
+    var userIndex = users.findIndex(u => u.email === email);
+    if (userIndex !== -1) {
+        users[userIndex].password = newPass;
+        DB.saveUsers(users);
+    }
+    
+    // Update password in companies
+    var companies = DB.getCompanies();
+    var companyIndex = companies.findIndex(c => c.email === email);
+    if (companyIndex !== -1) {
+        companies[companyIndex].password = newPass;
+        DB.saveCompanies(companies);
+    }
+    
+    // Clear reset data
+    sessionStorage.removeItem('resetCode_' + email);
+    sessionStorage.removeItem('resetExpiry_' + email);
+    sessionStorage.removeItem('resetEmail');
+    
+    alert('Password berhasil direset! Silakan login dengan password baru Anda.');
+    state.view = 'login';
+    render();
+}
+
+// ============================================
+// SECTION 8: USER DASHBOARD (PELAMAR)
+// ============================================
+function userPage() {
+    var recommendations = DB.getRecommendations().filter(r => r.applicantId === state.user.id);
+    var applications = DB.getApplications().filter(a => a.userId === state.user.id);
+    
+    var recommendationRows = recommendations.map(r => {
+        var company = DB.getCompanies().find(c => c.id === r.companyId);
+        var statusClass = r.status === 'accepted' ? 'status-accepted' : 
+                         r.status === 'rejected' ? 'status-rejected' : 
+                         r.status === 'recommended' ? 'status-recommended' : 'status-pending';
+        var statusText = r.status === 'accepted' ? 'Diterima' : 
+                        r.status === 'rejected' ? 'Ditolak' : 
+                        r.status === 'recommended' ? 'Direkomendasikan' : 'Menunggu';
+        
+        return `<tr>
+            <td>${company ? company.name : 'Perusahaan'}</td>
+            <td>${r.position}</td>
+            <td>${r.adminMessage || '-'}</td>
+            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+            <td>${r.companyDecision ? r.companyDecision : '-'}</td>
+        </tr>`;
+    }).join('');
+    
+    var applicationRows = applications.map(a => {
+        var statusClass = a.status === 'Diterima' ? 'status-accepted' : 
+                         a.status === 'Ditolak' ? 'status-rejected' : 'status-pending';
+// Di dalam map applications...
+        var cvBtn = a.cv_path ? 
+            `<a href="uploads/cv/${a.cv_path}" target="_blank" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-download"></i> CV</a>` : '';
+
+        var fotoBtn = a.foto_path ? 
+            `<button class="btn btn-sm btn-outline-success me-1" onclick="viewPhoto('uploads/foto/${a.foto_path}')"><i class="bi bi-image"></i> Foto</button>` : '';        
+        return `<tr>
+            <td>${a.tanggal}</td>
+            <td>${a.posisi}</td>
+            <td><span class="status-badge ${statusClass}">${a.status}</span></td>
+            <td>${cvBtn}${fotoBtn}
+                <button class="btn btn-sm btn-info me-1" onclick="editApplication(${a.id})">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteApplication(${a.id})">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>`;
+    }).join('');
+    
+    return `
+    <div style="background:#f8f9fa;min-height:100vh">
+        <!-- User Navbar -->
+        <nav class="navbar navbar-dark bg-primary">
+            <div class="container-fluid">
+                <span class="navbar-brand">
+                    <i class="bi bi-person-circle me-2"></i>${state.user.nama}
+                    <span class="badge bg-light text-primary ms-2">Pelamar</span>
+                </span>
+                <button class="btn btn-light btn-sm" onclick="doLogout()">
+                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                </button>
+            </div>
+        </nav>
+        
+        <div class="container py-4">
+            <!-- Profile Info -->
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3><i class="bi bi-person-badge me-2"></i>Profil Saya</h3>
+                            <p><strong>Email:</strong> ${state.user.email}</p>
+                            <p><strong>Keahlian:</strong> ${state.user.skills || '-'}</p>
+                            <p><strong>Pengalaman:</strong> ${state.user.experience || 0} tahun</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-outline-primary" onclick="showUpdateProfile()">
+                                <i class="bi bi-pencil me-1"></i>Edit Profil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Create Application -->
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <h4><i class="bi bi-file-plus me-2"></i>Buat Lamaran Baru</h4>
+                    <p class="text-muted">Kirim lamaran dengan mengupload CV dan foto</p>
+                    <button class="btn btn-primary" onclick="toggleApplicationForm()">
+                        <i class="bi bi-plus-circle me-1"></i>Buat Lamaran
+                    </button>
+                </div>
+            </div>
+            
+            <div id="applicationFormArea"></div>
+            
+            <!-- My Applications -->
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <h4><i class="bi bi-clock-history me-2"></i>Lamaran Saya</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Posisi</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${applicationRows || '<tr><td colspan="4" class="text-center text-muted py-4">Belum ada lamaran</td></tr>'}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <h4><i class="bi bi-stars me-2"></i>Rekomendasi dari Admin</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Perusahaan</th>
+                                    <th>Posisi</th>
+                                    <th>Pesan Admin</th>
+                                    <th>Status</th>
+                                    <th>Keputusan Perusahaan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${recommendationRows || '<tr><td colspan="5" class="text-center text-muted py-4">Belum ada rekomendasi</td></tr>'}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Request Recommendation -->
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <h4><i class="bi bi-send me-2"></i>Minta Rekomendasi ke Admin</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Posisi yang Dicari</label>
+                        <input type="text" class="form-control" id="requestPosition" placeholder="Contoh: Frontend Developer">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Pesan untuk Admin</label>
+                        <textarea class="form-control" id="requestMessage" rows="3" placeholder="Jelaskan preferensi Anda..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="sendRecommendationRequest()">
+                        <i class="bi bi-send me-1"></i>Minta Rekomendasi
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="modalArea"></div>
+    </div>`;
+}
+
+// ============================================
+// 1. FUNGSI MEMBUKA FORM (Menyiapkan Wadah)
+// ============================================
+function toggleApplicationForm() {
+    var area = document.getElementById('applicationFormArea');
+    
+    // Reset jika form sudah terbuka dan user klik batal/tutup
+    if (area.innerHTML && !state.editId && !state.cvFile && !state.fotoFile) {
+        area.innerHTML = '';
+        state.editId = null;
+        state.cvData = null;
+        state.fotoData = null;
+        state.selectedPosition = null;
+        return;
+    }
+    
+    if (!area.innerHTML) {
+        var positions = getPositions();
+        
+        // Render Kartu Posisi
+        var posCards = positions.map(p => {
+            // Cek apakah posisi ini sedang dipilih?
+            var selectedClass = state.selectedPosition === p.id ? 'selected' : '';
+            
+            // Perhatikan ID unik: id="pos-card-${p.id}"
+            return `
+            <div class="col-md-4 mb-3">
+                <div id="pos-card-${p.id}" class="card job-position-card h-100 ${selectedClass}" onclick="selectPosition(${p.id})">
+                    <div class="card-body text-center p-4">
+                        <i class="bi ${p.icon} mb-3 d-block" style="font-size: 2.5rem; color: var(--primary);"></i>
+                        <h6 class="fw-bold">${p.name}</h6>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+
+        area.innerHTML = `
+        <div class="card dashboard-card animate-fadeInUp shadow-lg">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-file-text me-2"></i>Formulir Lamaran</h4>
+                    <button class="btn-close" onclick="document.getElementById('applicationFormArea').innerHTML=''"></button>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label fw-bold mb-3">1. Klik Posisi yang Dilamar</label>
+                    <div class="row g-3">${posCards}</div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">2. Upload CV (PDF)</label>
+                        
+                        <div class="p-4 text-center border rounded bg-light position-relative" style="border: 2px dashed #6c757d;">
+                            <i class="bi bi-file-pdf text-danger fs-1"></i>
+                            <p class="mb-2 mt-2 fw-bold">Klik Pilih File</p>
+                            <input type="file" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" 
+                                   id="cvInput" accept=".pdf" style="cursor:pointer" 
+                                   onchange="handleFileSelect(event, 'cv')">
+                        </div>
+                        
+                        <div id="cv-preview-area" class="mt-3"></div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">3. Upload Foto</label>
+                        
+                        <div class="p-4 text-center border rounded bg-light position-relative" style="border: 2px dashed #6c757d;">
+                            <i class="bi bi-person-bounding-box text-primary fs-1"></i>
+                            <p class="mb-2 mt-2 fw-bold">Klik Pilih Foto</p>
+                            <input type="file" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" 
+                                   id="fotoInput" accept=".jpg,.jpeg,.png" style="cursor:pointer" 
+                                   onchange="handleFileSelect(event, 'foto')">
+                        </div>
+                        
+                        <div id="foto-preview-area" class="mt-3"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label fw-bold">4. Surat Lamaran</label>
+                    <textarea class="form-control" id="applicationLetter" rows="4" placeholder="Ceritakan sedikit tentang diri Anda..."></textarea>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-secondary me-md-2" onclick="document.getElementById('applicationFormArea').innerHTML=''">Batal</button>
+                    <button class="btn btn-success px-5" onclick="submitApplication()">
+                        <i class="bi bi-paperplane me-2"></i>Kirim Lamaran
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    }
+}
+
+function selectPosition(id) {
+    // 1. Simpan ID ke State
+    state.selectedPosition = id;
+
+    // 2. Hapus kelas 'selected' dari SEMUA kartu
+    var allCards = document.querySelectorAll('.job-position-card');
+    allCards.forEach(card => card.classList.remove('selected'));
+
+    // 3. Tambahkan kelas 'selected' ke kartu yang DIKLIK
+    var targetCard = document.getElementById('pos-card-' + id);
+    if (targetCard) {
+        targetCard.classList.add('selected');
+    }
+}
+
+// ============================================
+// 2. FUNGSI MEMPROSES FILE (Menampilkan Indikator)
+// ============================================
+function handleFileSelect(e, type) {
+    var file = e.target.files[0];
+    if (!file) return;
+
+    // Validasi Ukuran (2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        alert("File terlalu besar! Maksimal 2MB.");
+        return;
+    }
+
+    if (type === 'cv') {
+        state.cvFile = file; // Simpan ke memory
+        
+        // Tampilkan Nama File PDF
+        var preview = document.getElementById('cv-preview-area');
+        preview.innerHTML = `
+            <div class="alert alert-danger d-flex align-items-center mb-0 shadow-sm">
+                <i class="bi bi-file-earmark-pdf-fill fs-3 me-3"></i>
+                <div class="overflow-hidden">
+                    <small class="text-uppercase fw-bold text-muted" style="font-size:0.7rem">FILE TERPILIH</small>
+                    <div class="fw-bold text-truncate" style="max-width: 200px;">${file.name}</div>
+                    <small>${(file.size/1024).toFixed(1)} KB</small>
+                </div>
+            </div>`;
+            
+    } else {
+        state.fotoFile = file; // Simpan ke memory
+        
+        // Tampilkan Preview Gambar
+        var reader = new FileReader();
+        reader.onload = function(evt) {
+            var preview = document.getElementById('foto-preview-area');
+            preview.innerHTML = `
+                <div class="card border-primary shadow-sm text-center p-2">
+                    <img src="${evt.target.result}" class="img-fluid rounded" style="max-height: 150px; object-fit: cover; margin: 0 auto;">
+                    <div class="mt-2 small fw-bold text-primary text-truncate">${file.name}</div>
+                </div>`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// ============================================
+// 3. FUNGSI HAPUS FILE
+// ============================================
+function removeFile(type) {
+    if (type === 'cv') {
+        state.cvFile = null;
+        document.getElementById('cvInput').value = ""; 
+        document.getElementById('cvInfo').innerHTML = ""; // Bersihkan wadah
+    } else {
+        state.fotoFile = null;
+        document.getElementById('fotoInput').value = "";
+        document.getElementById('fotoInfo').innerHTML = ""; // Bersihkan wadah
+    }
+}
+
+// Fungsi Hapus File (Wajib ada biar tombol silang/hapus bekerja)
+function removeFile(type) {
+    if (type === 'cv') {
+        state.cvFile = null;
+        document.getElementById('cvInput').value = ""; // Reset input browser
+        document.getElementById('cvInfo').innerHTML = ""; // Hapus indikator
+    } else {
+        state.fotoFile = null;
+        document.getElementById('fotoInput').value = "";
+        document.getElementById('fotoInfo').innerHTML = "";
+    }
+}
+
+
+
+// Fungsi helper baru untuk preview tanpa reload form
+function renderFilePreview(type, dataUrl) {
+    var container = type === 'cv' ? document.getElementById('cvPreviewContainer') : document.getElementById('fotoPreviewContainer');
+    
+    // Kita perlu menambahkan div container di HTML toggleApplicationForm nanti
+    // Untuk sekarang, alert dulu sebagai indikator berhasil
+    // alert(type + " berhasil dipilih!"); 
+}
+
+
+// ============================================
+// UPDATE FUNGSI SUBMIT
+// ============================================
+function submitApplication() {
+    // 1. Validasi
+    if (!state.user || !state.user.id) {
+        alert('Sesi habis. Silakan login ulang.');
+        return;
+    }
+
+    var position = getPositions().find(p => p.id === state.selectedPosition);
+    var letter = document.getElementById('applicationLetter').value;
+    
+    if (!state.selectedPosition) {
+        alert('Pilih posisi yang ingin dilamar terlebih dahulu!');
+        return;
+    }
+    
+    if (!state.cvFile) {
+        alert('CV Wajib diupload!');
+        return;
+    }
+
+    // 2. Siapkan Data
+    var formData = new FormData();
+    formData.append('user_id', state.user.id);
+    formData.append('posisi', position.name);
+    formData.append('surat_lamaran', letter);
+    
+    if (state.cvFile) formData.append('cv', state.cvFile); 
+    if (state.fotoFile) formData.append('foto', state.fotoFile);
+
+    // Ubah tombol jadi Loading
+    var btn = event.target; // Tombol yang diklik
+    var oldText = btn.innerHTML;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Mengirim...';
+    btn.disabled = true;
+
+    // 3. Kirim ke Server
+    fetch('http://localhost/techjobs/submit_application.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Balikin tombol
+        btn.innerHTML = oldText;
+        btn.disabled = false;
+
+        if (data.status === 'success') {
+            // Tampilkan Notifikasi Sukses
+            alert("✅ " + data.message);
+            
+            // --- BAGIAN PENTING: RESET & STAY ---
+            
+            // 1. Bersihkan State File
+            state.cvFile = null;
+            state.fotoFile = null;
+            state.selectedPosition = null;
+            
+            // 2. Tutup Form Lamaran (Bersihkan HTML area form)
+            document.getElementById('applicationFormArea').innerHTML = '';
+            
+            // 3. PANGGIL USERPAGE() UNTUK REFRESH DATA TABEL
+            // Jangan pakai location.reload() atau render()
+            userPage(); 
+            
+        } else {
+            alert('❌ Gagal: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        btn.innerHTML = oldText;
+        btn.disabled = false;
+        alert('Terjadi kesalahan koneksi server.');
+    });
+}
+
+function editApplication(id) {
+    var app = DB.getApplications().find(a => a.id === id);
+    if (app) {
+        state.editId = id;
+        state.cvData = app.cv;
+        state.fotoData = app.foto;
+        state.selectedPosition = getPositions().findIndex(p => p.name === app.posisi) + 1;
+        document.getElementById('applicationLetter').value = app.surat_lamaran;
+        toggleApplicationForm();
+    }
+}
+
+function deleteApplication(id) {
+    if (confirm('Yakin hapus lamaran ini?')) {
+        var applications = DB.getApplications().filter(a => a.id !== id);
+        DB.saveApplications(applications);
+        alert('Lamaran dihapus!');
+        render();
+    }
+}
+
+function downloadFile(dataUrl, filename) {
+    var a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function viewPhoto(dataUrl) {
+    document.getElementById('modalArea').innerHTML = `
+    <div class="modal show" style="display:block;background:rgba(0,0,0,0.8)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Foto Pelamar</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="${dataUrl}" alt="Foto Pelamar" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function closeModal() {
+    document.getElementById('modalArea').innerHTML = '';
+}
+
+function showUpdateProfile() {
+    document.getElementById('modalArea').innerHTML = `
+    <div class="modal show" style="display:block;background:rgba(0,0,0,0.5)">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profil</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Keahlian (pisahkan dengan koma)</label>
+                        <input type="text" class="form-control" id="updateSkills" value="${state.user.skills || ''}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Pengalaman (tahun)</label>
+                        <input type="number" class="form-control" id="updateExperience" value="${state.user.experience || 0}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="updateProfile()">Simpan</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function updateProfile() {
+    var skills = document.getElementById('updateSkills').value;
+    var experience = document.getElementById('updateExperience').value;
+    
+    var users = DB.getUsers();
+    users = users.map(user => {
+        if (user.id === state.user.id) {
+            user.skills = skills;
+            user.experience = experience;
+        }
+        return user;
+    });
+    
+    DB.saveUsers(users);
+    state.user.skills = skills;
+    state.user.experience = experience;
+    DB.setUser(state.user);
+    
+    closeModal();
+    render();
+}
+
+// --- FUNGSI KIRIM DATA ---
+function sendRecommendation(userId) {
+    var companyId = document.getElementById('recCompanyId').value;
+    var position = document.getElementById('recPosition').value;
+    var message = document.getElementById('recMessage').value;
+
+    // Validasi di sisi Client
+    if (!userId) {
+        alert('Error Fatal: User ID hilang!');
+        return;
+    }
+    if (!companyId) {
+        alert('Harap pilih perusahaan tujuan terlebih dahulu!');
+        return;
+    }
+
+    // Tampilkan loading
+    var btn = event.target; // Tombol yang diklik
+    btn.innerHTML = "Mengirim...";
+    btn.disabled = true;
+
+    var payload = {
+        user_id: userId,
+        company_id: companyId,
+        position: position,
+        message: message
+    };
+
+// ... kode sebelumnya ...
+    
+    console.log("Mengirim Payload:", payload);
+
+    // GANTI baris fetch menjadi alamat lengkap seperti ini:
+    fetch('http://localhost/techjobs/submit_recommendation.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    
+    // ... kode selanjutnya ...
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            closeModal();
+        } else {
+            alert('Gagal: ' + data.message);
+            // Reset tombol jika gagal
+            btn.innerHTML = '<i class="bi bi-send me-2"></i>Kirim Rekomendasi';
+            btn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan koneksi server. Cek console.');
+        btn.disabled = false;
+    });
+}
+
+// ... [Previous functions remain the same until companyPage] ...
+
+// ============================================
+// SECTION 9: COMPANY DASHBOARD
+// ============================================
+// GANTI FUNGSI INI
+function companyPage() {
+    // 1. Cek Login
+    if (!state.user || !state.user.id) {
+        alert("Sesi habis, silakan login ulang.");
+        doLogout();
+        return;
+    }
+
+    var companyName = state.user.nama || 'Perusahaan';
+
+    // 2. Ambil Data dari Backend
+    fetch('http://localhost/techjobs/get_company_data.php?id=' + state.user.id)
+    .then(response => response.json())
+    .then(data => {
+        // Debugging: Lihat data asli di Console (Tekan F12)
+        console.log("Data Diterima:", data);
+
+        if (data.status !== 'success') {
+            console.error('API Error:', data.message);
+            // Jangan stop, lanjut render agar halaman tidak blank
+        }
+
+        var allRecs = data.recommendations || [];
+        var allJobs = data.jobs || [];
+
+        // Filter Data
+        var pendingRecs = allRecs.filter(r => r.status === 'recommended');
+        var historyRecs = allRecs.filter(r => r.status === 'accepted' || r.status === 'rejected');
+
+        // --- RENDER REKOMENDASI (PENDING) ---
+        var pendingRows = pendingRecs.length > 0 ? pendingRecs.map(r => `
+            <tr>
+                <td><strong>${r.nama || 'Nama Tidak Muncul'}</strong></td>
+                <td>${r.position || '-'}</td>
+                <td>${r.skills || '-'}</td>
+                <td>${r.admin_message || '-'}</td> 
+                <td>
+                    <button class="btn btn-sm btn-success me-1" onclick="acceptApplicant(${r.id})">
+                        <i class="bi bi-check-lg"></i> Terima
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="rejectApplicant(${r.id})">
+                        <i class="bi bi-x-lg"></i> Tolak
+                    </button>
+                </td>
+            </tr>
+        `).join('') : '<tr><td colspan="5" class="text-center py-3 text-muted">Tidak ada rekomendasi baru</td></tr>';
+
+        // --- RENDER RIWAYAT ---
+        var historyRows = historyRecs.length > 0 ? historyRecs.map(r => `
+            <tr>
+                <td>${r.nama || '-'}</td>
+                <td>${r.position || '-'}</td>
+                <td>
+                    <span class="badge ${r.status === 'accepted' ? 'bg-success' : 'bg-danger'}">
+                        ${r.status === 'accepted' ? 'Diterima' : 'Ditolak'}
+                    </span>
+                </td>
+                <td>${r.company_decision || '-'}</td>
+            </tr>
+        `).join('') : '<tr><td colspan="4" class="text-center py-3 text-muted">Belum ada riwayat</td></tr>';
+
+        // --- RENDER LOWONGAN ---
+        var jobRows = allJobs.length > 0 ? allJobs.map(j => `
+            <tr>
+                <td><strong>${j.name || 'Posisi'}</strong></td>
+                <td>${j.type || '-'}</td>
+                <td>${j.salary || '-'}</td>
+                <td><span class="badge bg-primary">Aktif</span></td>
+                <td>
+                    <button class="btn btn-sm btn-danger" onclick="deleteJob(${j.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('') : '<tr><td colspan="5" class="text-center py-3 text-muted">Belum ada lowongan dibuat</td></tr>';
+
+        // --- SUSUN HTML UTAMA ---
+        var html = `
+        <div style="background:var(--bg-color);min-height:100vh">
+            <nav class="navbar navbar-dark bg-success mb-4">
+                <div class="container">
+                    <span class="navbar-brand"><i class="bi bi-building me-2"></i>${companyName}</span>
+                    <button class="btn btn-light btn-sm" onclick="doLogout()">Logout</button>
+                </div>
+            </nav>
+            
+            <div class="container pb-5">
+                <div class="card dashboard-card mb-4">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-1">Dashboard Perusahaan</h3>
+                            <p class="text-muted mb-0">Kelola lowongan dan pelamar.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="showCreateJobForm()">
+                            <i class="bi bi-plus-lg me-1"></i> Buat Lowongan
+                        </button>
+                    </div>
+                </div>
+
+                <div id="jobFormArea"></div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card dashboard-card mb-4">
+                            <div class="card-header bg-white fw-bold py-3">
+                                <i class="bi bi-inbox-fill text-primary me-2"></i>Rekomendasi Masuk
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr><th>Nama</th><th>Posisi</th><th>Skill</th><th>Pesan Admin</th><th>Aksi</th></tr>
+                                    </thead>
+                                    <tbody>${pendingRows}</tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card dashboard-card">
+                            <div class="card-header bg-white fw-bold py-3">
+                                <i class="bi bi-clock-history text-secondary me-2"></i>Riwayat Keputusan
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr><th>Nama</th><th>Posisi</th><th>Status</th><th>Catatan</th></tr>
+                                    </thead>
+                                    <tbody>${historyRows}</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card dashboard-card">
+                            <div class="card-header bg-white fw-bold py-3">
+                                <i class="bi bi-briefcase-fill text-warning me-2"></i>Lowongan Aktif
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover mb-0" style="font-size:0.9rem">
+                                    <thead><tr><th>Posisi</th><th>Tipe</th><th>Gaji</th><th>Sts</th><th>#</th></tr></thead>
+                                    <tbody>${jobRows}</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        document.getElementById('app').innerHTML = html;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Tampilkan error di layar agar terlihat
+        document.getElementById('app').innerHTML = `<div class="container py-5 text-center"><h3>Terjadi Kesalahan</h3><p>${error.message}</p><button class="btn btn-primary" onclick="companyPage()">Coba Lagi</button></div>`;
+    });
+}
+
+// GANTI FUNGSI TERIMA
+function acceptApplicant(id) {
+    var note = prompt('Berikan catatan untuk pelamar (opsional):', 'Selamat, Anda diterima!');
+    updateStatus(id, 'accepted', note);
+}
+
+// GANTI FUNGSI TOLAK
+function rejectApplicant(id) {
+    var note = prompt('Alasan penolakan:', 'Maaf, kualifikasi belum sesuai.');
+    if (note) updateStatus(id, 'rejected', note);
+}
+
+// FUNGSI HELPER BARU (Tambahkan ini di bawah rejectApplicant)
+function updateStatus(id, status, note) {
+    fetch('http://localhost/techjobs/update_recommendation.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: status, note: note })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Status berhasil diperbarui!');
+            companyPage(); // Refresh halaman otomatis
+        } else {
+            alert('Gagal: ' + data.message);
+        }
+    });
+}
+
+// ============================================
+// SECTION 10: JOB POSTING FUNCTIONS (COMPANY)
+// ============================================
+function showCreateJobForm() {
+    var area = document.getElementById('jobFormArea');
+    if (area.innerHTML && !state.editingJob) {
+        area.innerHTML = '';
+        return;
+    }
+    
+    var jobTypes = [
+        'Full-time', 'Part-time', 'Kontrak', 'Internship', 'Remote', 'Hybrid'
+    ];
+    
+    var jobCategories = [
+        'Teknologi', 'Keuangan', 'Kesehatan', 'Pendidikan', 'Retail', 'Manufaktur', 'Lainnya'
+    ];
+    
+    var job = state.editingJob ? DB.getJobs().find(j => j.id === state.editingJob) : null;
+    
+    area.innerHTML = `
+    <div class="card dashboard-card mb-4">
+        <div class="card-body">
+            <h4><i class="bi bi-briefcase me-2"></i>${state.editingJob ? 'Edit' : 'Buat'} Lowongan Pekerjaan</h4>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Nama Posisi</label>
+                    <input type="text" class="form-control" id="jobTitle" value="${job ? job.name : ''}" placeholder="Contoh: Frontend Developer">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Tipe Pekerjaan</label>
+                    <select class="form-select" id="jobType">
+                        ${jobTypes.map(type => 
+                            `<option value="${type}" ${job && job.type === type ? 'selected' : ''}>${type}</option>`
+                        ).join('')}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Kategori</label>
+                    <select class="form-select" id="jobCategory">
+                        ${jobCategories.map(cat => 
+                            `<option value="${cat}" ${job && job.category === cat ? 'selected' : ''}>${cat}</option>`
+                        ).join('')}
+                    </select>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Lokasi</label>
+                    <input type="text" class="form-control" id="jobLocation" value="${job ? job.location : ''}" placeholder="Contoh: Jakarta, Remote, dll.">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Rentang Gaji</label>
+                    <input type="text" class="form-control" id="jobSalary" value="${job ? job.salary : ''}" placeholder="Contoh: Rp 8-15 Juta">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Pengalaman (tahun)</label>
+                    <input type="text" class="form-control" id="jobExperience" value="${job ? job.experience : ''}" placeholder="Contoh: 1-3 tahun">
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Deskripsi Pekerjaan</label>
+                <textarea class="form-control" id="jobDescription" rows="4" placeholder="Jelaskan tanggung jawab dan persyaratan pekerjaan...">${job ? job.desc : ''}</textarea>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label fw-bold">Persyaratan (pisahkan dengan titik)</label>
+                <textarea class="form-control" id="jobRequirements" rows="3" placeholder="1. Minimal S1 Teknik Informatika\n2. Menguasai JavaScript\n3. Pengalaman 2 tahun...">${job ? job.requirements : ''}</textarea>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label fw-bold">Benefit (pisahkan dengan koma)</label>
+                <input type="text" class="form-control" id="jobBenefits" value="${job ? job.benefits : ''}" placeholder="BPJS, THR, Asuransi Kesehatan, Bonus Tahunan">
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label fw-bold">Icon (pilih icon yang sesuai)</label>
+                <select class="form-select" id="jobIcon">
+                    <option value="bi-code-slash" ${job && job.icon === 'bi-code-slash' ? 'selected' : ''}>💻 Programmer</option>
+                    <option value="bi-laptop" ${job && job.icon === 'bi-laptop' ? 'selected' : ''}>💼 IT Support</option>
+                    <option value="bi-shield-check" ${job && job.icon === 'bi-shield-check' ? 'selected' : ''}>🛡️ Cybersecurity</option>
+                    <option value="bi-graph-up" ${job && job.icon === 'bi-graph-up' ? 'selected' : ''}>📈 Data Analyst</option>
+                    <option value="bi-cloud" ${job && job.icon === 'bi-cloud' ? 'selected' : ''}>☁️ Cloud Engineer</option>
+                    <option value="bi-robot" ${job && job.icon === 'bi-robot' ? 'selected' : ''}>🤖 AI Engineer</option>
+                    <option value="bi-phone" ${job && job.icon === 'bi-phone' ? 'selected' : ''}>📱 Mobile Developer</option>
+                </select>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" onclick="${state.editingJob ? 'updateJob()' : 'createJob()'}">
+                    <i class="bi bi-check-circle me-2"></i>${state.editingJob ? 'Update' : 'Simpan'} Lowongan
+                </button>
+                <button class="btn btn-secondary" onclick="cancelJobForm()">
+                    <i class="bi bi-x-circle me-2"></i>Batal
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Preview Section -->
+    <div class="card dashboard-card">
+        <div class="card-body">
+            <h5><i class="bi bi-eye me-2"></i>Preview Lowongan</h5>
+            <div class="preview-area border rounded p-4 mt-3">
+                <div class="text-center mb-4">
+                    <i class="bi ${job ? job.icon : 'bi-briefcase'}" style="font-size: 3rem; color: var(--primary);"></i>
+                    <h4 id="previewTitle" class="mt-2 fw-bold">${job ? job.name : 'Nama Posisi'}</h4>
+                    <span class="badge bg-primary" id="previewType">${job ? job.type : 'Full-time'}</span>
+                </div>
+                <p id="previewDesc">${job ? job.desc : 'Deskripsi pekerjaan akan muncul di sini...'}</p>
+                <div class="text-primary fw-bold mb-3" id="previewSalary">${job ? job.salary : 'Rp 0'}</div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span><i class="bi bi-briefcase me-2"></i><span id="previewExp">${job ? job.experience : '0 tahun'}</span></span>
+                    <span><i class="bi bi-geo-alt me-2"></i><span id="previewLocation">${job ? job.location : 'Lokasi'}</span></span>
+                </div>
+                <p><strong>Perusahaan:</strong> ${state.user.nama}</p>
+            </div>
+        </div>
+    </div>`;
+    
+    // Add event listeners for live preview
+    document.getElementById('jobTitle').addEventListener('input', updatePreview);
+    document.getElementById('jobType').addEventListener('change', updatePreview);
+    document.getElementById('jobDescription').addEventListener('input', updatePreview);
+    document.getElementById('jobSalary').addEventListener('input', updatePreview);
+    document.getElementById('jobExperience').addEventListener('input', updatePreview);
+    document.getElementById('jobLocation').addEventListener('input', updatePreview);
+    document.getElementById('jobIcon').addEventListener('change', updatePreview);
+}
+
+function updatePreview() {
+    var title = document.getElementById('jobTitle').value || 'Nama Posisi';
+    var type = document.getElementById('jobType').value || 'Full-time';
+    var desc = document.getElementById('jobDescription').value || 'Deskripsi pekerjaan akan muncul di sini...';
+    var salary = document.getElementById('jobSalary').value || 'Rp 0';
+    var experience = document.getElementById('jobExperience').value || '0 tahun';
+    var location = document.getElementById('jobLocation').value || 'Lokasi';
+    var icon = document.getElementById('jobIcon').value || 'bi-briefcase';
+    
+    document.getElementById('previewTitle').textContent = title;
+    document.getElementById('previewType').textContent = type;
+    document.getElementById('previewDesc').textContent = desc;
+    document.getElementById('previewSalary').textContent = salary;
+    document.getElementById('previewExp').textContent = experience;
+    document.getElementById('previewLocation').textContent = location;
+    
+    var iconElement = document.querySelector('.preview-area .bi');
+    if (iconElement) {
+        iconElement.className = 'bi ' + icon;
+    }
+}
+
+// --- UPDATE FUNGSI CREATE JOB ---
+function createJob() {
+    // Ambil value dari form
+    var payload = {
+        company_id: state.user.id,
+        name: document.getElementById('jobTitle').value,
+        type: document.getElementById('jobType').value,
+        category: document.getElementById('jobCategory').value,
+        location: document.getElementById('jobLocation').value,
+        salary: document.getElementById('jobSalary').value,
+        experience: document.getElementById('jobExperience').value,
+        desc: document.getElementById('jobDescription').value,
+        requirements: document.getElementById('jobRequirements').value,
+        benefits: document.getElementById('jobBenefits').value,
+        icon: document.getElementById('jobIcon').value
+    };
+
+    // Validasi Sederhana
+    if (!payload.name || !payload.salary || !payload.location) {
+        alert('Harap isi Nama Posisi, Gaji, dan Lokasi!');
+        return;
+    }
+
+    // Kirim ke Database
+    fetch('http://localhost/techjobs/create_job.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            cancelJobForm(); // Tutup form
+            companyPage();   // Refresh data di halaman
+        } else {
+            alert('Gagal: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan koneksi saat membuat lowongan.');
+    });
+}
+
+function updateJob() {
+    var title = document.getElementById('jobTitle').value;
+    var type = document.getElementById('jobType').value;
+    var category = document.getElementById('jobCategory').value;
+    var location = document.getElementById('jobLocation').value;
+    var salary = document.getElementById('jobSalary').value;
+    var experience = document.getElementById('jobExperience').value;
+    var description = document.getElementById('jobDescription').value;
+    var requirements = document.getElementById('jobRequirements').value;
+    var benefits = document.getElementById('jobBenefits').value;
+    var icon = document.getElementById('jobIcon').value;
+    
+    if (!title || !description || !salary || !location) {
+        alert('Harap isi semua field yang wajib!');
+        return;
+    }
+    
+    var jobs = DB.getJobs();
+    jobs = jobs.map(job => {
+        if (job.id === state.editingJob) {
+            return {
+                ...job,
+                name: title,
+                type: type,
+                category: category,
+                location: location,
+                salary: salary,
+                experience: experience,
+                desc: description,
+                requirements: requirements,
+                benefits: benefits,
+                icon: icon
+            };
+        }
+        return job;
+    });
+    
+    DB.saveJobs(jobs);
+    
+    alert('Lowongan pekerjaan berhasil diupdate!');
+    state.editingJob = null;
+    render();
+}
+
+function editJob(jobId) {
+    state.editingJob = jobId;
+    showCreateJobForm();
+}
+
+// --- UPDATE FUNGSI DELETE JOB ---
+function deleteJob(jobId) {
+    if (!confirm('Yakin ingin menghapus lowongan ini?')) return;
+
+    fetch('http://localhost/techjobs/delete_job.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: jobId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Lowongan berhasil dihapus.');
+            companyPage(); // Refresh halaman
+        } else {
+            alert('Gagal menghapus: ' + data.message);
+        }
+    })
+    .catch(error => alert('Error koneksi server'));
+}
+
+function cancelJobForm() {
+    state.editingJob = null;
+    document.getElementById('jobFormArea').innerHTML = '';
+}
+
+// GANTI FUNGSI TERIMA
+function acceptApplicant(id) {
+    var note = prompt('Berikan catatan untuk pelamar (opsional):', 'Selamat, Anda diterima!');
+    updateStatus(id, 'accepted', note);
+}
+
+// GANTI FUNGSI TOLAK
+function rejectApplicant(id) {
+    var note = prompt('Alasan penolakan:', 'Maaf, kualifikasi belum sesuai.');
+    if (note) updateStatus(id, 'rejected', note);
+}
+
+
+
+// ============================================
+// SECTION 11: ADMIN DASHBOARD
+// ============================================
+function adminPage() {
+    console.log("Mengambil data admin..."); // Debugging
+
+    fetch('http://localhost/techjobs/get_admin_data.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log("Data diterima:", data); // Cek Console F12 jika masih error
+
+        if (data.status !== 'success') {
+            alert('Error Database: ' + (data.message || 'Unknown error'));
+            return;
+        }
+
+        // --- SAFE MODE: Pastikan variable ada isinya (Default array kosong/angka 0) ---
+        var apps = data.applications || [];
+        var companies = data.companies || [];
+        var jobs = data.jobs || [];
+        var stats = data.stats || { total_users: 0, total_companies: 0, total_jobs: 0 };
+        
+        state.availableCompanies = companies;
+        var pendingTotal = apps.filter(a => a.status === 'Pending').length;
+
+        // Render Baris Lowongan
+        var jobRows = jobs.length > 0 ? jobs.map(j => `
+            <tr>
+                <td><strong>${j.name || 'Posisi'}</strong></td>
+                <td>${j.company_name || 'Perusahaan'}</td>
+                <td>${j.location || '-'}</td>
+                <td>${j.salary || '-'}</td>
+                <td><span class="badge ${j.status === 'active' ? 'bg-success' : 'bg-secondary'}">${j.status || '-'}</span></td>
+            </tr>`).join('') : '<tr><td colspan="5" class="text-center py-3">Belum ada data lowongan</td></tr>';
+
+        // Render HTML
+        var html = `
+        <div style="background:var(--bg-color);min-height:100vh">
+            <nav class="navbar navbar-dark bg-info mb-4">
+                <div class="container">
+                    <span class="navbar-brand"><i class="bi bi-shield-lock me-2"></i>Admin Dashboard</span>
+                    <button class="btn btn-light btn-sm" onclick="doLogout()">Logout</button>
+                </div>
+            </nav>
+            
+            <div class="container pb-5">
+                <div class="row mb-4">
+                    <div class="col-md-3"><div class="card bg-primary text-white p-3 text-center"><h3>${stats.total_users}</h3><small>Pelamar</small></div></div>
+                    <div class="col-md-3"><div class="card bg-success text-white p-3 text-center"><h3>${stats.total_companies}</h3><small>Perusahaan</small></div></div>
+                    <div class="col-md-3"><div class="card bg-warning text-white p-3 text-center"><h3>${stats.total_jobs}</h3><small>Lowongan</small></div></div>
+                    <div class="col-md-3"><div class="card bg-danger text-white p-3 text-center"><h3>${pendingTotal}</h3><small>Pending</small></div></div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <div class="card p-3"><h5 class="mb-3">Statistik Posisi</h5><div style="height:250px"><canvas id="positionChart"></canvas></div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3"><h5 class="mb-3">Status</h5><div style="height:250px"><canvas id="statusChart"></canvas></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="adminTabs">
+                            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tabPelamar">Data Pelamar</a></li>
+                            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tabLowongan">Daftar Lowongan</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body tab-content">
+                        <div class="tab-pane active" id="tabPelamar">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead><tr><th>Pelamar</th><th>Posisi</th><th>CV</th><th>Aksi</th></tr></thead>
+                                    <tbody>${renderApplicationRows(apps)}</tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabLowongan">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead><tr><th>Posisi</th><th>Perusahaan</th><th>Lokasi</th><th>Gaji</th><th>Status</th></tr></thead>
+                                    <tbody>${jobRows}</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="modalArea"></div>
+        </div>`;
+
+        document.getElementById('app').innerHTML = html;
+        
+        // Render Chart (Hanya jika data ada)
+        if(apps.length > 0) renderAdminCharts(apps);
+    })
+    .catch(error => {
+        console.error('Error Admin Page:', error);
+        alert('Gagal memuat halaman: ' + error.message);
+    });
+}
+
+// --- HELPER 1: Render Baris Tabel ---
+// --- UPDATE HELPER RENDER BARIS ---
+function renderApplicationRows(applications) {
+    if (!applications || applications.length === 0) {
+        return '<tr><td colspan="7" class="text-center py-4">Belum ada lamaran masuk</td></tr>';
+    }
+
+    return applications.map(app => {
+        // Link CV & Foto
+        var cvLink = app.cv_path 
+            ? `<a href="uploads/cv/${app.cv_path}" target="_blank" class="btn btn-sm btn-outline-danger"><i class="bi bi-file-pdf"></i> PDF</a>` 
+            : '<span class="badge bg-secondary">No CV</span>';
+
+        var fotoLink = app.foto_path 
+            ? `<a href="uploads/foto/${app.foto_path}" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-image"></i> Foto</a>` 
+            : '<span class="badge bg-secondary">No Foto</span>';
+
+        // --- LOGIKA WARNA BADGE (PENTING) ---
+        // Karena PHP sudah mengirim 'Diterima'/'Ditolak', kita tinggal warnai saja
+        var badgeColor = 'bg-warning text-dark'; // Default Pending
+        var btnState = ''; // Tombol aktif
+
+        if (app.status === 'Diterima') {
+            badgeColor = 'bg-success';
+            btnState = 'disabled'; // Matikan tombol jika sudah diterima
+        } else if (app.status === 'Ditolak') {
+            badgeColor = 'bg-danger';
+        }
+
+        return `
+        <tr>
+            <td>
+                <div class="fw-bold">${app.nama}</div>
+                <div class="small text-muted">${app.email}</div>
+            </td>
+            <td>${app.posisi}</td>
+            <td>${app.cv_path ? 'Ada' : '-'}</td>
+            <td>
+                <div class="d-flex gap-1">${cvLink}${fotoLink}</div>
+            </td>
+            <td><span class="badge ${badgeColor}">${app.status}</span></td>
+            <td>
+                <button class="btn btn-sm btn-primary" ${btnState} onclick="showRecommendModal(${app.user_id}, '${app.nama}', '${app.posisi}')">
+                    <i class="bi bi-arrow-right-circle"></i> Rekomendasi
+                </button>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+// --- HELPER 2: Render Charts (Disesuaikan dengan Data Real) ---
+function renderAdminCharts(applications) {
+    // 1. Data untuk Position Chart (Bar)
+    var positionCount = {};
+    applications.forEach(a => {
+        positionCount[a.posisi] = (positionCount[a.posisi] || 0) + 1;
+    });
+
+    new Chart(document.getElementById('positionChart'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(positionCount),
+            datasets: [{
+                label: 'Jumlah Pelamar',
+                data: Object.values(positionCount),
+                backgroundColor: '#667eea',
+                borderRadius: 5
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // 2. Data untuk Status Chart (Pie)
+    var statusCount = {
+        'Pending': applications.filter(a => a.status === 'Pending').length,
+        'Diterima': applications.filter(a => a.status === 'Diterima').length,
+        'Ditolak': applications.filter(a => a.status === 'Ditolak').length
+    };
+
+    new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(statusCount),
+            datasets: [{
+                data: Object.values(statusCount),
+                backgroundColor: ['#ffc107', '#28a745', '#dc3545']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+}
+
+// ============================================
+// SECTION 10: CHART FUNCTIONS
+// ============================================
+var chartInstances = {};
+
+function initCharts() {
+    renderCharts();
+}
+
+function renderCharts() {
+    var applications = DB.getApplications();
+    var positions = getPositions();
+    
+    // Position Chart
+    var positionCount = {};
+    positions.forEach(pos => {
+        positionCount[pos.name] = applications.filter(a => a.posisi === pos.name).length;
+    });
+    
+    renderChart('positionChart', Object.keys(positionCount), Object.values(positionCount), 
+                ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a'], 
+                'Jumlah Pelamar per Posisi');
+    
+    // Status Chart
+    var statusCount = {
+        'Pending': applications.filter(a => a.status === 'Pending').length,
+        'Diterima': applications.filter(a => a.status === 'Diterima').length,
+        'Ditolak': applications.filter(a => a.status === 'Ditolak').length
+    };
+    
+    renderChart('statusChart', Object.keys(statusCount), Object.values(statusCount), 
+                ['#ffc107', '#28a745', '#dc3545'], 
+                'Distribusi Status Lamaran');
+    
+    // Trend Chart
+    renderTrendChart();
+}
+
+function renderChart(canvasId, labels, data, colors, title) {
+    var ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    
+    if (chartInstances[canvasId]) {
+        chartInstances[canvasId].destroy();
+    }
+    
+    var config = {
+        type: state.currentChart,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Jumlah',
+                data: data,
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace('0.8', '1')),
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: title,
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            }
+        }
+    };
+    
+    if (state.currentChart === 'bar') {
+        config.options.scales = {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        };
+    }
+    
+    chartInstances[canvasId] = new Chart(ctx, config);
+}
+
+function renderTrendChart() {
+    var ctx = document.getElementById('trendChart');
+    if (!ctx) return;
+    
+    var applications = DB.getApplications();
+    var trendData = {};
+    var today = new Date();
+    
+    for (var i = 6; i >= 0; i--) {
+        var date = new Date();
+        date.setDate(today.getDate() - i);
+        var dateStr = date.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric' });
+        trendData[dateStr] = 0;
+    }
+    
+    applications.forEach(function(app) {
+        var appDate = new Date(app.tanggal.split('/').reverse().join('-'));
+        var diffDays = Math.floor((today - appDate) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays >= 0 && diffDays <= 6) {
+            var dateStr = appDate.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric' });
+            trendData[dateStr]++;
+        }
+    });
+    
+    var trendLabels = Object.keys(trendData);
+    var trendValues = Object.values(trendData);
+    
+    if (chartInstances['trendChart']) {
+        chartInstances['trendChart'].destroy();
+    }
+    
+    chartInstances['trendChart'] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: trendLabels,
+            datasets: [{
+                label: 'Lamaran per Hari',
+                data: trendValues,
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Trend Lamaran 7 Hari Terakhir',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+function changeChartType(type) {
+    state.currentChart = type;
+    document.querySelectorAll('.chart-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderCharts();
+}
+
+function exportChartData() {
+    var applications = DB.getApplications();
+    var positions = getPositions();
+    
+    var positionData = {};
+    positions.forEach(pos => {
+        positionData[pos.name] = applications.filter(a => a.posisi === pos.name).length;
+    });
+    
+    var statusData = {
+        'Pending': applications.filter(a => a.status === 'Pending').length,
+        'Diterima': applications.filter(a => a.status === 'Diterima').length,
+        'Ditolak': applications.filter(a => a.status === 'Ditolak').length
+    };
+    
+    var csvContent = "Posisi,Jumlah Pelamar\n";
+    Object.keys(positionData).forEach(pos => {
+        csvContent += pos + "," + positionData[pos] + "\n";
+    });
+    
+    csvContent += "\nStatus,Jumlah\n";
+    Object.keys(statusData).forEach(status => {
+        csvContent += status + "," + statusData[status] + "\n";
+    });
+    
+    var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    var link = document.createElement("a");
+    var url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "data_pelamar_" + new Date().toISOString().split('T')[0] + ".csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert('Data berhasil diexport!');
+}
+
+// ... [Rest of the functions remain the same] ...
+
+// Tambahkan variable baru di state untuk menyimpan FILE ASLI
+// state.cvFile = null;
+// state.fotoFile = null;
+
+function handleFileSelect(e, type) {
+    var file = e.target.files[0];
+    if (!file) return;
+    
+    var maxSize = type === 'cv' ? 2 * 1024 * 1024 : 1 * 1024 * 1024; // 2MB & 1MB
+    if (file.size > maxSize) {
+        alert('Ukuran file terlalu besar!');
+        return;
+    }
+    
+    // Simpan file object untuk dikirim ke PHP nanti
+    if (type === 'cv') {
+        state.cvFile = file; // <--- PENTING: Simpan file object
+    } else {
+        state.fotoFile = file; // <--- PENTING: Simpan file object
+    }
+    
+    // Preview Logic (Base64) - Tetap dipakai untuk tampilan preview di layar
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        if (type === 'cv') {
+            state.cvData = e.target.result; // Untuk preview visual
+        } else {
+            state.fotoData = e.target.result; // Untuk preview visual
+        }
+        toggleApplicationForm(); // Refresh tampilan form
+    };
+    reader.readAsDataURL(file);
+}
+
+
+
+// ============================================
+// SECTION 12: POSITION DETAIL PAGE
+// ============================================
+function showPositionDetail(posId, isCompanyJob = false) {
+    state.viewingPosition = { id: posId, isCompanyJob: isCompanyJob };
+    state.view = 'positionDetail';
+    render();
+}
+
+function positionDetailPage() {
+    var pos;
+    if (state.viewingPosition.isCompanyJob) {
+        pos = DB.getJobs().find(p => p.id === state.viewingPosition.id);
+    } else {
+        pos = getPositions().find(p => p.id === state.viewingPosition.id);
+    }
+    
+    if (!pos) {
+        state.view = 'landing';
+        render();
+        return;
+    }
+    
+    var requirements = pos.requirements ? 
+        pos.requirements.split('\n').map(req => `<li class="mb-2">${req}</li>`).join('') : 
+        '<li>Persyaratan tidak tersedia</li>';
+    
+    var benefits = pos.benefits ? 
+        pos.benefits.split(',').map(benefit => `<span class="badge bg-success me-1 mb-1">${benefit.trim()}</span>`).join('') : 
+        '<span class="text-muted">Benefit tidak tersedia</span>';
+    
+    var companyInfo = pos.companyName ? 
+        `<p><strong>Perusahaan:</strong> ${pos.companyName}</p>` : '';
+    
+    return `
+    <nav class="navbar navbar-light" style="background-color: var(--navbar-bg);">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="state.view='landing';render()">
+                <i class="bi bi-arrow-left me-2"></i>Kembali ke Beranda
+            </a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="bi ${state.theme === 'light' ? 'bi-moon-fill' : 'bi-sun-fill'}"></i>
+                </button>
+        </div>
+    </nav>
+    
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <i class="bi ${pos.icon}" style="font-size: 4rem; color: var(--primary);"></i>
+                            <h2 class="fw-bold mt-3">${pos.name}</h2>
+                            <p class="text-muted fs-5">${pos.desc}</p>
+                            <h4 class="text-primary">${pos.salary}</h4>
+                            ${companyInfo}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3">Persyaratan:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-success me-3"></i>
+                                    <span>Pengalaman: ${pos.experience}</span>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-success me-3"></i>
+                                    <span>Lokasi: ${pos.location}</span>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-success me-3"></i>
+                                    <span>Tipe Pekerjaan: ${pos.type}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        ${pos.requirements ? `
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3">Persyaratan Detail:</h5>
+                            <ul>
+                                ${requirements}
+                            </ul>
+                        </div>
+                        ` : ''}
+                        
+                        ${pos.benefits ? `
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3">Benefit:</h5>
+                            <div class="d-flex flex-wrap">
+                                ${benefits}
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card sticky-top" style="top:20px">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Tertarik dengan posisi ini?</h5>
+                        <p class="text-muted mb-4">Daftar sekarang dan mulai perjalanan karirmu!</p>
+                        ${state.user ? `
+                            <button class="btn btn-primary w-100 btn-lg mb-2" onclick="state.view='user';render()">
+                                <i class="bi bi-send me-2"></i>Lamar Posisi Ini
+                            </button>
+                        ` : `
+                            <button class="btn btn-primary w-100 btn-lg mb-2" onclick="showRegisterOptions()">
+                                <i class="bi bi-person-plus me-2"></i>Daftar Akun
+                            </button>
+                            <button class="btn btn-outline-primary w-100 mb-2" onclick="state.view='login';render()">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Sudah Punya Akun?
+                            </button>
+                        `}
+                        <button class="btn btn-outline-secondary w-100" onclick="state.view='landing';render()">
+                            <i class="bi bi-house me-2"></i>Kembali ke Beranda
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================
+// SECTION 13: INITIALIZE APPLICATION
+// ============================================
+function initializeData() {
+    // Initialize admin
+    var users = DB.getUsers();
+    if (!users.find(u => u.email === 'admin@techjobs.com')) {
+        users.push({
+            id: 1,
+            nama: 'Admin TechJobs',
+            email: 'admin@techjobs.com',
+            password: 'admin123',
+            role: 'admin'
+        });
+    }
+    
+    // Initialize demo users
+    if (!users.find(u => u.email === 'user@example.com')) {
+        users.push({
+            id: 2,
+            nama: 'Budi Santoso',
+            email: 'user@example.com',
+            password: 'user123',
+            telepon: '081234567891',
+            skills: 'JavaScript, React, Node.js',
+            experience: 3,
+            role: 'user'
+        });
+        
+        users.push({
+            id: 3,
+            nama: 'Siti Aminah',
+            email: 'siti@example.com',
+            password: 'user123',
+            telepon: '081298765432',
+            skills: 'Python, Data Analysis, SQL',
+            experience: 2,
+            role: 'user'
+        });
+    }
+    
+    DB.saveUsers(users);
+    
+    // Initialize demo companies
+    var companies = DB.getCompanies();
+    if (companies.length === 0) {
+        companies.push({
+            id: 1001,
+            name: 'TechCorp Indonesia',
+            email: 'company@example.com',
+            password: 'company123',
+            telepon: '(021) 1234-5678',
+            industry: 'Teknologi',
+            role: 'company'
+        });
+        
+        companies.push({
+            id: 1002,
+            name: 'Digital Solutions',
+            email: 'digital@example.com',
+            password: 'company123',
+            telepon: '(022) 8765-4321',
+            industry: 'Software Development',
+            role: 'company'
+        });
+        
+        DB.saveCompanies(companies);
+    }
+    
+    // Initialize demo jobs
+    var jobs = DB.getJobs();
+    if (jobs.length === 0) {
+        jobs.push({
+            id: 2001,
+            companyId: 1001,
+            companyName: 'TechCorp Indonesia',
+            name: 'Senior Full Stack Developer',
+            type: 'Full-time',
+            category: 'Teknologi',
+            location: 'Jakarta (Hybrid)',
+            salary: 'Rp 18-30 Juta',
+            experience: '3-5 tahun',
+            desc: 'Mengembangkan aplikasi web dan mobile dengan teknologi modern',
+            requirements: '1. Menguasai JavaScript/TypeScript\n2. Pengalaman dengan React dan Node.js\n3. Memahami database SQL dan NoSQL',
+            benefits: 'BPJS, THR, Asuransi Kesehatan, Bonus Tahunan, Remote Work Option',
+            icon: 'bi-code-slash',
+            createdAt: '01/12/2024',
+            status: 'active'
+        });
+        
+        jobs.push({
+            id: 2002,
+            companyId: 1002,
+            companyName: 'Digital Solutions',
+            name: 'UI/UX Designer',
+            type: 'Full-time',
+            category: 'Teknologi',
+            location: 'Remote',
+            salary: 'Rp 12-20 Juta',
+            experience: '2-4 tahun',
+            desc: 'Mendesain pengalaman pengguna yang menarik dan intuitif',
+            requirements: '1. Menguasai Figma/Adobe XD\n2. Memahami prinsip UX Design\n3. Portfolio yang relevan',
+            benefits: 'Flexible Hours, Learning Budget, Health Insurance',
+            icon: 'bi-palette',
+            createdAt: '28/11/2024',
+            status: 'active'
+        });
+        
+        DB.saveJobs(jobs);
+    }
+    
+    // Initialize demo recommendations
+    var recommendations = DB.getRecommendations();
+    if (recommendations.length === 0) {
+        recommendations.push({
+            id: 1,
+            applicantId: 2,
+            companyId: 1001,
+            position: 'Frontend Developer',
+            adminMessage: 'Memiliki pengalaman 3 tahun dengan React dan JavaScript modern.',
+            status: 'recommended',
+            type: 'admin_recommendation',
+            createdAt: '01/12/2024'
+        });
+        
+        recommendations.push({
+            id: 2,
+            applicantId: 3,
+            companyId: 1002,
+            position: 'Data Analyst',
+            adminMessage: 'Berpengalaman dalam analisis data dan visualisasi.',
+            status: 'accepted',
+            companyDecision: 'Diterima untuk wawancara tahap 2',
+            type: 'admin_recommendation',
+            createdAt: '28/11/2024'
+        });
+        
+        DB.saveRecommendations(recommendations);
+    }
+    
+    // Initialize demo applications
+    var applications = DB.getApplications();
+    if (applications.length === 0) {
+        applications.push({
+            id: 1001,
+            userId: 2,
+            nama: 'Budi Santoso',
+            email: 'user@example.com',
+            posisi: 'Frontend Developer',
+            surat_lamaran: 'Saya memiliki pengalaman 3 tahun dalam pengembangan frontend dengan React...',
+            cv: null,
+            foto: null,
+            status: 'Diterima',
+            tanggal: '10/11/2024'
+        });
+        
+        applications.push({
+            id: 1002,
+            userId: 3,
+            nama: 'Siti Aminah',
+            email: 'siti@example.com',
+            posisi: 'Data Analyst',
+            surat_lamaran: 'Saya berpengalaman dalam analisis data menggunakan Python dan SQL...',
+            cv: null,
+            foto: null,
+            status: 'Pending',
+            tanggal: '11/11/2024'
+        });
+        
+        DB.saveApplications(applications);
+    }
+}
+
+// --- HELPER 3: Tampilkan Modal ---
+// --- FUNGSI BUKA MODAL ---
+// --- 1. Fungsi Membuka Modal ---
+function showRecommendModal(userId, applicantName, position) {
+    console.log("Membuka Modal. User ID:", userId, "Nama:", applicantName); // <--- Cek Console F12
+
+    if (!userId) {
+        alert("Error: ID Pelamar tidak terdeteksi! Coba refresh halaman.");
+        return;
+    }
+
+    var companyOptions = state.availableCompanies.map(c => 
+        `<option value="${c.id}">${c.name} (${c.industry})</option>`
+    ).join('');
+
+    var modalHtml = `
+    <div class="modal show animate-fadeInUp" style="display:block; background:rgba(0,0,0,0.5); z-index: 1055;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rekomendasikan Pelamar</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Merekomendasikan: <strong>${applicantName}</strong></p>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Pilih Perusahaan</label>
+                        <select class="form-select" id="recCompanyId">
+                            <option value="">-- Pilih Perusahaan --</option>
+                            ${companyOptions}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Posisi</label>
+                        <input type="text" class="form-control" id="recPosition" value="${position}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Pesan Admin</label>
+                        <textarea class="form-control" id="recMessage" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                    <button class="btn btn-primary" onclick="sendRecommendation('${userId}')">
+                        <i class="bi bi-send me-2"></i>Kirim Rekomendasi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    document.getElementById('modalArea').innerHTML = modalHtml;
+}
+
+function closeModal() {
+    document.getElementById('modalArea').innerHTML = '';
+}
+
+// ============================================
+// SECTION 14: UTILITY FUNCTIONS
+// ============================================
+function getPositions() {
+    return [
+        { 
+            id: 1, 
+            name: 'Cybersecurity', 
+            icon: 'bi-shield-lock', 
+            desc: 'Keamanan Siber & Infrastruktur',
+            salary: 'Rp 15-25 Juta',
+            experience: '2+ tahun',
+            type: 'Full-time',
+            location: 'Jakarta (Hybrid)',
+            features: ['Remote Work Option', 'Premium Insurance', 'Certification Bonus']
+        },
+        { 
+            id: 2, 
+            name: 'Data Scientist', 
+            icon: 'bi-graph-up', 
+            desc: 'Analisis Data & Machine Learning',
+            salary: 'Rp 12-22 Juta',
+            experience: '1+ tahun',
+            type: 'Full-time',
+            location: 'Remote',
+            features: ['Stock Options', 'Conference Budget', 'Learning Stipend']
+        },
+        { 
+            id: 3, 
+            name: 'Data Analyst', 
+            icon: 'bi-clipboard-data', 
+            desc: 'Analisis & Visualisasi Data',
+            salary: 'Rp 8-15 Juta',
+            experience: 'Fresh Graduate',
+            type: 'Full-time',
+            location: 'Bandung',
+            features: ['Flexible Hours', 'Mentorship Program', 'Career Path']
+        },
+        { 
+            id: 4, 
+            name: 'IoT Consultant', 
+            icon: 'bi-cpu', 
+            desc: 'Konsultan Internet of Things',
+            salary: 'Rp 13-23 Juta',
+            experience: '2+ tahun',
+            type: 'Full-time',
+            location: 'Surabaya',
+            features: ['Hardware Tools', 'Innovation Lab', 'Patent Support']
+        },
+        { 
+            id: 5, 
+            name: 'Cloud Architecture', 
+            icon: 'bi-cloud', 
+            desc: 'Arsitektur Cloud Computing',
+            salary: 'Rp 14-26 Juta',
+            experience: '3+ tahun',
+            type: 'Full-time',
+            location: 'Jakarta',
+            features: ['Certification Reimbursement', 'Performance Bonus', 'Family Insurance']
+        },
+        { 
+            id: 6, 
+            name: 'AI Engineer', 
+            icon: 'bi-robot', 
+            desc: 'Artificial Intelligence & Deep Learning',
+            salary: 'Rp 15-28 Juta',
+            experience: '2+ tahun',
+            type: 'Full-time',
+            location: 'Jakarta (Hybrid)',
+            features: ['GPU Workstation', 'Research Budget', 'Publication Bonus']
+        },
+        { 
+            id: 7, 
+            name: 'Business Marketing', 
+            icon: 'bi-graph-up-arrow', 
+            desc: 'Pemasaran & Strategi Bisnis',
+            salary: 'Rp 10-20 Juta',
+            experience: '1+ tahun',
+            type: 'Full-time',
+            location: 'Jakarta',
+            features: ['Commission Bonus', 'Travel Opportunities', 'Team Building']
+        }
+    ];
+}
+
+function handleScroll() {
+    var navbar = document.querySelector('.navbar-custom');
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }
+}
+
+function initAnimations() {
+    var animateElements = document.querySelectorAll('.animate-fadeInUp');
+    animateElements.forEach(function(el) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.8s ease';
+    });
+    handleScroll();
+}
+
+// ... [Rest of the utility functions remain the same] ...
+
+// Start application
+initializeData();
+render();
+</script>
+</body>
+</html>
